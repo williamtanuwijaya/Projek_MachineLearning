@@ -85,4 +85,32 @@ i_temperature = entropi - sum([
   (panas_snowy/panas * math.log2(panas_snowy/panas)))
 ])
 
-print(i_temperature)
+# print(i_temperature)
+# print(dataset.describe())
+
+kelembapan_normal = (dataset['Humidity'] <= 60).sum()
+kelembapan_lembab = (dataset['Humidity'] > 60).sum()
+
+kelembapan_normal_rainy = ((dataset['Humidity'] <= 60) & (dataset['Weather Type'] == 'Rainy')).sum()
+kelembapan_normal_sunny = ((dataset['Humidity'] <= 60) & (dataset['Weather Type'] == 'Sunny')).sum()
+kelembapan_normal_cloudy = ((dataset['Humidity'] <= 60) & (dataset['Weather Type'] == 'Cloudy')).sum()
+kelembapan_normal_snowy = ((dataset['Humidity'] <= 60) & (dataset['Weather Type'] == 'Snowy')).sum()
+
+kelembapan_lembab_rainy = ((dataset['Humidity'] > 60) & (dataset['Weather Type'] == 'Rainy')).sum()
+kelembapan_lembab_sunny = ((dataset['Humidity'] > 60) & (dataset['Weather Type'] == 'Sunny')).sum()
+kelembapan_lembab_cloudy = ((dataset['Humidity'] > 60) & (dataset['Weather Type'] == 'Cloudy')).sum()
+kelembapan_lembab_snowy = ((dataset['Humidity'] > 60) & (dataset['Weather Type'] == 'Snowy')).sum()
+
+i_humidity = entropi -sum([
+  -kelembapan_normal / jumlah_keseluruhan * (
+  (kelembapan_normal_rainy/kelembapan_normal * math.log2(kelembapan_normal_rainy/kelembapan_normal)) + 
+  (kelembapan_normal_sunny/kelembapan_normal * math.log2(kelembapan_normal_sunny/kelembapan_normal)) + 
+  (kelembapan_normal_cloudy/kelembapan_normal * math.log2(kelembapan_normal_cloudy/kelembapan_normal))+ 
+  (kelembapan_normal_snowy/kelembapan_normal * math.log2(kelembapan_normal_snowy/kelembapan_normal))),
+
+  -kelembapan_lembab / jumlah_keseluruhan * (
+  (kelembapan_lembab_rainy/kelembapan_lembab * math.log2(kelembapan_lembab_rainy/kelembapan_lembab)) + 
+  (kelembapan_lembab_sunny/kelembapan_lembab * math.log2(kelembapan_lembab_sunny/kelembapan_lembab)) + 
+  (kelembapan_lembab_cloudy/kelembapan_lembab * math.log2(kelembapan_lembab_cloudy/kelembapan_lembab))+ 
+  (kelembapan_lembab_snowy/kelembapan_lembab * math.log2(kelembapan_lembab_snowy/kelembapan_lembab)))
+])
