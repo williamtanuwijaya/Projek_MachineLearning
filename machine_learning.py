@@ -86,7 +86,7 @@ i_temperature = entropi - sum([
 ])
 
 # print(i_temperature)
-# print(dataset.describe())
+print(dataset.describe())
 
 kelembapan_normal = (dataset['Humidity'] <= 60).sum()
 kelembapan_lembab = (dataset['Humidity'] > 60).sum()
@@ -114,3 +114,69 @@ i_humidity = entropi -sum([
   (kelembapan_lembab_cloudy/kelembapan_lembab * math.log2(kelembapan_lembab_cloudy/kelembapan_lembab))+ 
   (kelembapan_lembab_snowy/kelembapan_lembab * math.log2(kelembapan_lembab_snowy/kelembapan_lembab)))
 ])
+
+windspeed_very_light = (dataset['Wind Speed'] <= 6).sum()
+windspeed_light = ((dataset['Wind Speed'] > 6) & (dataset['Wind Speed'] <= 14)).sum()
+windspeed_normal = ((dataset['Wind Speed'] > 14) & (dataset['Wind Speed'] <= 18)).sum()
+windspeed_heavy = ((dataset['Wind Speed'] > 18) & (dataset['Wind Speed'] <= 25)).sum()
+windspeed_stromy = ((dataset['Wind Speed'] > 25)).sum()
+
+windspeed_very_light_rainy = ((dataset['Wind Speed'] <= 6) & (dataset['Weather Type'] == 'Rainy')).sum()
+windspeed_very_light_sunny = ((dataset['Wind Speed'] <= 6) & (dataset['Weather Type'] == 'Sunny')).sum()
+windspeed_very_light_cloudy = ((dataset['Wind Speed'] <= 6) & (dataset['Weather Type'] == 'Cloudy')).sum()
+windspeed_very_light_snowy = ((dataset['Wind Speed'] <= 6) & (dataset['Weather Type'] == 'Snowy')).sum()
+
+windspeed_light_rainy = ((dataset['Wind Speed'] > 6) & (dataset['Wind Speed'] <= 14) & (dataset['Weather Type'] == 'Rainy')).sum()
+windspeed_light_sunny = ((dataset['Wind Speed'] > 6) & (dataset['Wind Speed'] <= 14) & (dataset['Weather Type'] == 'Sunny')).sum()
+windspeed_light_cloudy = ((dataset['Wind Speed'] > 6) & (dataset['Wind Speed'] <= 14) & (dataset['Weather Type'] == 'Cloudy')).sum()
+windspeed_light_snowy = ((dataset['Wind Speed'] > 6) & (dataset['Wind Speed'] <= 14) & (dataset['Weather Type'] == 'Snowy')).sum()
+
+windspeed_normal_rainy = ((dataset['Wind Speed'] > 14) & (dataset['Wind Speed'] <= 18) & (dataset['Weather Type'] == 'Rainy')).sum()
+windspeed_normal_sunny = ((dataset['Wind Speed'] > 14) & (dataset['Wind Speed'] <= 18) & (dataset['Weather Type'] == 'Sunny')).sum()
+windspeed_normal_cloudy = ((dataset['Wind Speed'] > 14) & (dataset['Wind Speed'] <= 18) & (dataset['Weather Type'] == 'Cloudy')).sum()
+windspeed_normal_snowy = ((dataset['Wind Speed'] > 14) & (dataset['Wind Speed'] <= 18) & (dataset['Weather Type'] == 'Snowy')).sum()
+
+windspeed_heavy_rainy = ((dataset['Wind Speed'] > 18) & (dataset['Wind Speed'] <= 25) & (dataset['Weather Type'] == 'Rainy')).sum()
+windspeed_heavy_sunny = ((dataset['Wind Speed'] > 18) & (dataset['Wind Speed'] <= 25) & (dataset['Weather Type'] == 'Sunny')).sum()
+windspeed_heavy_cloudy = ((dataset['Wind Speed'] > 18) & (dataset['Wind Speed'] <= 25) & (dataset['Weather Type'] == 'Cloudy')).sum()
+windspeed_heavy_snowy = ((dataset['Wind Speed'] > 18) & (dataset['Wind Speed'] <= 25) & (dataset['Weather Type'] == 'Snowy')).sum()
+
+windspeed_stromy_rainy = ((dataset['Wind Speed'] > 25) & (dataset['Weather Type'] == 'Rainy')).sum()
+# windspeed_stromy_sunny = ((dataset['Wind Speed'] > 25) & (dataset['Weather Type'] == 'Sunny')).sum()
+# print('Wind speed stromy sunny', windspeed_stromy_sunny)
+windspeed_stromy_cloudy = ((dataset['Wind Speed'] > 25) & (dataset['Weather Type'] == 'Cloudy')).sum()
+windspeed_stromy_snowy = ((dataset['Wind Speed'] > 25) & (dataset['Weather Type'] == 'Snowy')).sum()
+
+i_windspeed = entropi -sum([
+  -windspeed_very_light / jumlah_keseluruhan * (
+  (windspeed_very_light_rainy/windspeed_very_light * math.log2(windspeed_very_light_rainy/windspeed_very_light)) + 
+  (windspeed_very_light_sunny/windspeed_very_light * math.log2(windspeed_very_light_sunny/windspeed_very_light)) + 
+  (windspeed_very_light_cloudy/windspeed_very_light * math.log2(windspeed_very_light_cloudy/windspeed_very_light))+ 
+  (windspeed_very_light_snowy/windspeed_very_light * math.log2(windspeed_very_light_snowy/windspeed_very_light))),
+
+  -windspeed_light / jumlah_keseluruhan * (
+  (windspeed_light_rainy/windspeed_light * math.log2(windspeed_light_rainy/windspeed_light)) + 
+  (windspeed_light_sunny/windspeed_light * math.log2(windspeed_light_sunny/windspeed_light)) + 
+  (windspeed_light_cloudy/windspeed_light * math.log2(windspeed_light_cloudy/windspeed_light))+ 
+  (windspeed_light_snowy/windspeed_light * math.log2(windspeed_light_snowy/windspeed_light))),
+
+  -windspeed_normal / jumlah_keseluruhan * (
+  (windspeed_normal_rainy/windspeed_normal * math.log2(windspeed_normal_rainy/windspeed_normal)) + 
+  (windspeed_normal_sunny/windspeed_normal * math.log2(windspeed_normal_sunny/windspeed_normal)) + 
+  (windspeed_normal_cloudy/windspeed_normal * math.log2(windspeed_normal_cloudy/windspeed_normal))+ 
+  (windspeed_normal_snowy/windspeed_normal * math.log2(windspeed_normal_snowy/windspeed_normal))),
+
+  -windspeed_heavy / jumlah_keseluruhan * (
+  (windspeed_heavy_rainy/windspeed_heavy * math.log2(windspeed_heavy_rainy/windspeed_heavy)) + 
+  (windspeed_heavy_sunny/windspeed_heavy * math.log2(windspeed_heavy_sunny/windspeed_heavy)) + 
+  (windspeed_heavy_cloudy/windspeed_heavy * math.log2(windspeed_heavy_cloudy/windspeed_heavy))+ 
+  (windspeed_heavy_snowy/windspeed_heavy * math.log2(windspeed_heavy_snowy/windspeed_heavy))),
+
+  -windspeed_stromy / jumlah_keseluruhan * (
+  (windspeed_stromy_rainy/windspeed_stromy * math.log2(windspeed_stromy_rainy/windspeed_stromy)) + 
+  # (windspeed_stromy_sunny/windspeed_stromy * math.log2(windspeed_stromy_sunny/windspeed_stromy)) + 
+  (windspeed_stromy_cloudy/windspeed_stromy * math.log2(windspeed_stromy_cloudy/windspeed_stromy))+ 
+  (windspeed_stromy_snowy/windspeed_stromy * math.log2(windspeed_stromy_snowy/windspeed_stromy)))
+])
+
+print('Wind speed ',i_windspeed)
