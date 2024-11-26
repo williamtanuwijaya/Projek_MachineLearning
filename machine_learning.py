@@ -1,7 +1,7 @@
 import pandas as pd # type: ignore
 import math
 
-dataset = pd.read_csv('weather_classification_data.csv')
+dataset = pd.read_csv('cleaned_weather_data_zscore.csv')
 
 weather_type_rainy = (dataset['Weather Type'] == 'Rainy').sum()
 weather_type_sunny = (dataset['Weather Type'] == 'Sunny').sum()
@@ -114,6 +114,8 @@ i_humidity = entropi -sum([
   (kelembapan_lembab_cloudy/kelembapan_lembab * math.log2(kelembapan_lembab_cloudy/kelembapan_lembab))+ 
   (kelembapan_lembab_snowy/kelembapan_lembab * math.log2(kelembapan_lembab_snowy/kelembapan_lembab)))
 ])
+
+print('HUMIDITY ', i_humidity)
 
 windspeed_very_light = (dataset['Wind Speed'] <= 6).sum()
 windspeed_light = ((dataset['Wind Speed'] > 6) & (dataset['Wind Speed'] <= 14)).sum()
