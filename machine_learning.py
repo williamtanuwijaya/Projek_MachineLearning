@@ -469,3 +469,81 @@ i_location =  entropi -sum([
 ])
 
 print('Location ', i_location)
+
+precipitation_berawan = (dataset['Precipitation (%)'] <= 5).sum()
+precipitation_hujan_ringan = ((dataset['Precipitation (%)'] > 5) & (dataset['Precipitation (%)'] <= 20)).sum()
+precipitation_hujan_sedang = ((dataset['Precipitation (%)'] > 20) & (dataset['Precipitation (%)'] <= 40)).sum()
+precipitation_hujan_lebat = ((dataset['Precipitation (%)'] > 40) & (dataset['Precipitation (%)'] <= 60)).sum()
+precipitation_hujan_sangat_lebat = ((dataset['Precipitation (%)'] > 60) & (dataset['Precipitation (%)'] <= 90)).sum()
+precipitation_hujan_ekstrem = ((dataset['Precipitation (%)'] > 90)).sum()
+
+# precipitation_berawan_rainy = ((dataset['Precipitation (%)'] <= 5) & (dataset['Weather Type'] == 'Rainy')).sum()
+precipitation_berawan_sunny = ((dataset['Precipitation (%)'] <= 5) & (dataset['Weather Type'] == 'Sunny')).sum()
+# precipitation_berawan_cloudy = ((dataset['Precipitation (%)'] <= 5) & (dataset['Weather Type'] == 'Cloudy')).sum()
+# precipitation_berawan_snowy = ((dataset['Precipitation (%)'] <= 5) & (dataset['Weather Type'] == 'Snowy')).sum()
+
+precipitation_hujan_ringan_rainy = ((dataset['Precipitation (%)'] > 5) & (dataset['Precipitation (%)'] <= 20) & (dataset['Weather Type'] == 'Rainy')).sum()
+precipitation_hujan_ringan_sunny = ((dataset['Precipitation (%)'] > 5) & (dataset['Precipitation (%)'] <= 20) & (dataset['Weather Type'] == 'Sunny')).sum()
+precipitation_hujan_ringan_cloudy = ((dataset['Precipitation (%)'] > 5) & (dataset['Precipitation (%)'] <= 20) & (dataset['Weather Type'] == 'Cloudy')).sum()
+precipitation_hujan_ringan_snowy = ((dataset['Precipitation (%)'] > 5) & (dataset['Precipitation (%)'] <= 20) & (dataset['Weather Type'] == 'Snowy')).sum()
+
+precipitation_hujan_sedang_rainy = ((dataset['Precipitation (%)'] > 20) & (dataset['Precipitation (%)'] <= 40) & (dataset['Weather Type'] == 'Rainy')).sum()
+precipitation_hujan_sedang_sunny = ((dataset['Precipitation (%)'] > 20) & (dataset['Precipitation (%)'] <= 40) & (dataset['Weather Type'] == 'Sunny')).sum()
+precipitation_hujan_sedang_cloudy = ((dataset['Precipitation (%)'] > 20) & (dataset['Precipitation (%)'] <= 40) & (dataset['Weather Type'] == 'Cloudy')).sum()
+precipitation_hujan_sedang_snowy = ((dataset['Precipitation (%)'] > 20) & (dataset['Precipitation (%)'] <= 40) & (dataset['Weather Type'] == 'Snowy')).sum()
+
+precipitation_hujan_lebat_rainy = ((dataset['Precipitation (%)'] > 40) & (dataset['Precipitation (%)'] <= 60) & (dataset['Weather Type'] == 'Rainy')).sum()
+precipitation_hujan_lebat_sunny = ((dataset['Precipitation (%)'] > 40) & (dataset['Precipitation (%)'] <= 60) & (dataset['Weather Type'] == 'Sunny')).sum()
+precipitation_hujan_lebat_cloudy = ((dataset['Precipitation (%)'] > 40) & (dataset['Precipitation (%)'] <= 60) & (dataset['Weather Type'] == 'Cloudy')).sum()
+precipitation_hujan_lebat_snowy = ((dataset['Precipitation (%)'] > 40) & (dataset['Precipitation (%)'] <= 60) & (dataset['Weather Type'] == 'Snowy')).sum()
+
+precipitation_hujan_sangat_lebat_rainy = ((dataset['Precipitation (%)'] > 60) & (dataset['Precipitation (%)'] <= 90) & (dataset['Weather Type'] == 'Rainy')).sum()
+precipitation_hujan_sangat_lebat_sunny = ((dataset['Precipitation (%)'] > 60) & (dataset['Precipitation (%)'] <= 90) & (dataset['Weather Type'] == 'Sunny')).sum()
+precipitation_hujan_sangat_lebat_cloudy = ((dataset['Precipitation (%)'] > 60) & (dataset['Precipitation (%)'] <= 90) & (dataset['Weather Type'] == 'Cloudy')).sum()
+precipitation_hujan_sangat_lebat_snowy = ((dataset['Precipitation (%)'] > 60) & (dataset['Precipitation (%)'] <= 90) & (dataset['Weather Type'] == 'Snowy')).sum()
+
+precipitation_hujan_ekstrem_rainy = ((dataset['Precipitation (%)'] > 90) & (dataset['Weather Type'] == 'Rainy')).sum()
+precipitation_hujan_ekstrem_sunny = ((dataset['Precipitation (%)'] > 90) & (dataset['Weather Type'] == 'Sunny')).sum()
+precipitation_hujan_ekstrem_cloudy = ((dataset['Precipitation (%)'] > 90) & (dataset['Weather Type'] == 'Cloudy')).sum()
+precipitation_hujan_ekstrem_snowy = ((dataset['Precipitation (%)'] > 90) & (dataset['Weather Type'] == 'Snowy')).sum()
+
+i_precipitation =  entropi -sum([
+  -precipitation_berawan / jumlah_keseluruhan * (
+  # (precipitation_berawan_rainy/precipitation_berawan * math.log2(precipitation_berawan_rainy/precipitation_berawan)) + 
+  (precipitation_berawan_sunny/precipitation_berawan * math.log2(precipitation_berawan_sunny/precipitation_berawan)) 
+  # (precipitation_berawan_cloudy/precipitation_berawan * math.log2(precipitation_berawan_cloudy/precipitation_berawan))+ 
+  # (precipitation_berawan_snowy/precipitation_berawan * math.log2(precipitation_berawan_snowy/precipitation_berawan))
+  ),
+  
+  -precipitation_hujan_ringan / jumlah_keseluruhan * (
+  (precipitation_hujan_ringan_rainy/precipitation_hujan_ringan * math.log2(precipitation_hujan_ringan_rainy/precipitation_hujan_ringan)) + 
+  (precipitation_hujan_ringan_sunny/precipitation_hujan_ringan * math.log2(precipitation_hujan_ringan_sunny/precipitation_hujan_ringan))+
+  (precipitation_hujan_ringan_cloudy/precipitation_hujan_ringan * math.log2(precipitation_hujan_ringan_cloudy/precipitation_hujan_ringan))+ 
+  (precipitation_hujan_ringan_snowy/precipitation_hujan_ringan * math.log2(precipitation_hujan_ringan_snowy/precipitation_hujan_ringan))),
+  
+  -precipitation_hujan_sedang / jumlah_keseluruhan * (
+  (precipitation_hujan_sedang_rainy/precipitation_hujan_sedang * math.log2(precipitation_hujan_sedang_rainy/precipitation_hujan_sedang)) + 
+  (precipitation_hujan_sedang_sunny/precipitation_hujan_sedang * math.log2(precipitation_hujan_sedang_sunny/precipitation_hujan_sedang)) + 
+  (precipitation_hujan_sedang_cloudy/precipitation_hujan_sedang * math.log2(precipitation_hujan_sedang_cloudy/precipitation_hujan_sedang))+ 
+  (precipitation_hujan_sedang_snowy/precipitation_hujan_sedang * math.log2(precipitation_hujan_sedang_snowy/precipitation_hujan_sedang))),
+  
+  -precipitation_hujan_lebat / jumlah_keseluruhan * (
+  (precipitation_hujan_lebat_rainy/precipitation_hujan_lebat * math.log2(precipitation_hujan_lebat_rainy/precipitation_hujan_lebat)) + 
+  (precipitation_hujan_lebat_sunny/precipitation_hujan_lebat * math.log2(precipitation_hujan_lebat_sunny/precipitation_hujan_lebat)) + 
+  (precipitation_hujan_lebat_cloudy/precipitation_hujan_lebat * math.log2(precipitation_hujan_lebat_cloudy/precipitation_hujan_lebat))+ 
+  (precipitation_hujan_lebat_snowy/precipitation_hujan_lebat * math.log2(precipitation_hujan_lebat_snowy/precipitation_hujan_lebat))),
+  
+  -precipitation_hujan_sangat_lebat / jumlah_keseluruhan * (
+  (precipitation_hujan_sangat_lebat_rainy/precipitation_hujan_sangat_lebat * math.log2(precipitation_hujan_sangat_lebat_rainy/precipitation_hujan_sangat_lebat)) + 
+  (precipitation_hujan_sangat_lebat_sunny/precipitation_hujan_sangat_lebat * math.log2(precipitation_hujan_sangat_lebat_sunny/precipitation_hujan_sangat_lebat)) + 
+  (precipitation_hujan_sangat_lebat_cloudy/precipitation_hujan_sangat_lebat * math.log2(precipitation_hujan_sangat_lebat_cloudy/precipitation_hujan_sangat_lebat))+ 
+  (precipitation_hujan_sangat_lebat_snowy/precipitation_hujan_sangat_lebat * math.log2(precipitation_hujan_sangat_lebat_snowy/precipitation_hujan_sangat_lebat))),
+  
+  -precipitation_hujan_ekstrem / jumlah_keseluruhan * (
+  (precipitation_hujan_ekstrem_rainy/precipitation_hujan_ekstrem * math.log2(precipitation_hujan_ekstrem_rainy/precipitation_hujan_ekstrem)) + 
+  (precipitation_hujan_ekstrem_sunny/precipitation_hujan_ekstrem * math.log2(precipitation_hujan_ekstrem_sunny/precipitation_hujan_ekstrem)) + 
+  (precipitation_hujan_ekstrem_cloudy/precipitation_hujan_ekstrem * math.log2(precipitation_hujan_ekstrem_cloudy/precipitation_hujan_ekstrem))+ 
+  (precipitation_hujan_ekstrem_snowy/precipitation_hujan_ekstrem * math.log2(precipitation_hujan_ekstrem_snowy/precipitation_hujan_ekstrem))),
+])
+
+print('Precipitation ', i_precipitation)
