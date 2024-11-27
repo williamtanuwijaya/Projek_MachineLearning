@@ -304,3 +304,5 @@ i_uv_index =  entropi -sum([
 ])
 
 print('UV INDEX ', i_uv_index)
+
+print(dataset['Visibility (km)'].unique())
