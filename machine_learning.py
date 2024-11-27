@@ -182,3 +182,60 @@ i_windspeed = entropi -sum([
 ])
 
 print('Wind speed ',i_windspeed)
+print('Cloud Cover')
+print(dataset['Cloud Cover'].unique())
+
+cloud_cover_party_cloudy = (dataset['Cloud Cover'] == 'partly cloudy' ).sum()
+cloud_cover_clear = (dataset['Cloud Cover'] == 'clear' ).sum()
+cloud_cover_overcast = (dataset['Cloud Cover'] == 'overcast' ).sum()
+cloud_cover_cloudy = (dataset['Cloud Cover'] == 'cloudy' ).sum()
+
+cloud_cover_party_cloudy_rainy = ((dataset['Cloud Cover'] == 'partly cloudy' ) & (dataset['Weather Type'] == 'Rainy')).sum()
+cloud_cover_party_cloudy_sunny = ((dataset['Cloud Cover'] == 'partly cloudy' ) & (dataset['Weather Type'] == 'Sunny')).sum()
+cloud_cover_party_cloudy_cloudy = ((dataset['Cloud Cover'] == 'partly cloudy') & (dataset['Weather Type'] == 'Cloudy')).sum()
+cloud_cover_party_cloudy_snowy = ((dataset['Cloud Cover'] == 'partly cloudy' ) & (dataset['Weather Type'] == 'Rainy')).sum()
+
+# cloud_cover_clear_rainy = ((dataset['Cloud Cover'] == 'clear' ) & (dataset['Weather Type'] == 'Rainy')).sum()
+# print('rainy ', cloud_cover_clear_rainy)
+cloud_cover_clear_sunny = ((dataset['Cloud Cover'] == 'clear' ) & (dataset['Weather Type'] == 'Sunny')).sum()
+# cloud_cover_clear_cloudy = ((dataset['Cloud Cover'] == 'clear') & (dataset['Weather Type'] == 'Cloudy')).sum()
+# cloud_cover_clear_snowy = ((dataset['Cloud Cover'] == 'clear' ) & (dataset['Weather Type'] == 'Rainy')).sum()
+
+cloud_cover_overcast_rainy = ((dataset['Cloud Cover'] == 'overcast' ) & (dataset['Weather Type'] == 'Rainy')).sum()
+cloud_cover_overcast_sunny = ((dataset['Cloud Cover'] == 'overcast' ) & (dataset['Weather Type'] == 'Sunny')).sum()
+cloud_cover_overcast_cloudy = ((dataset['Cloud Cover'] == 'overcast') & (dataset['Weather Type'] == 'Cloudy')).sum()
+cloud_cover_overcast_snowy = ((dataset['Cloud Cover'] == 'overcast' ) & (dataset['Weather Type'] == 'Rainy')).sum()
+
+cloud_cover_cloudy_rainy = ((dataset['Cloud Cover'] == 'cloudy' ) & (dataset['Weather Type'] == 'Rainy')).sum()
+cloud_cover_cloudy_sunny = ((dataset['Cloud Cover'] == 'cloudy' ) & (dataset['Weather Type'] == 'Sunny')).sum()
+cloud_cover_cloudy_cloudy = ((dataset['Cloud Cover'] == 'cloudy') & (dataset['Weather Type'] == 'Cloudy')).sum()
+cloud_cover_cloudy_snowy = ((dataset['Cloud Cover'] == 'cloudy' ) & (dataset['Weather Type'] == 'Rainy')).sum()
+
+i_cloud_cover =  entropi -sum([
+  -cloud_cover_party_cloudy / jumlah_keseluruhan * (
+  (cloud_cover_party_cloudy_rainy/cloud_cover_party_cloudy * math.log2(cloud_cover_party_cloudy_rainy/cloud_cover_party_cloudy)) + 
+  (cloud_cover_party_cloudy_sunny/cloud_cover_party_cloudy * math.log2(cloud_cover_party_cloudy_sunny/cloud_cover_party_cloudy)) + 
+  (cloud_cover_party_cloudy_cloudy/cloud_cover_party_cloudy * math.log2(cloud_cover_party_cloudy_cloudy/cloud_cover_party_cloudy))+ 
+  (cloud_cover_party_cloudy_snowy/cloud_cover_party_cloudy * math.log2(cloud_cover_party_cloudy_snowy/cloud_cover_party_cloudy))),
+  
+  -cloud_cover_clear / jumlah_keseluruhan * (
+  # (cloud_cover_clear_rainy/cloud_cover_clear * math.log2(cloud_cover_clear_rainy/cloud_cover_clear)) + 
+  (cloud_cover_clear_sunny/cloud_cover_clear * math.log2(cloud_cover_clear_sunny/cloud_cover_clear))
+  # (cloud_cover_clear_cloudy/cloud_cover_clear * math.log2(cloud_cover_clear_cloudy/cloud_cover_clear))+ 
+  # (cloud_cover_clear_snowy/cloud_cover_clear * math.log2(cloud_cover_clear_snowy/cloud_cover_clear))
+  ),
+  
+  -cloud_cover_overcast / jumlah_keseluruhan * (
+  (cloud_cover_overcast_rainy/cloud_cover_overcast * math.log2(cloud_cover_overcast_rainy/cloud_cover_overcast)) + 
+  (cloud_cover_overcast_sunny/cloud_cover_overcast * math.log2(cloud_cover_overcast_sunny/cloud_cover_overcast)) + 
+  (cloud_cover_overcast_cloudy/cloud_cover_overcast * math.log2(cloud_cover_overcast_cloudy/cloud_cover_overcast))+ 
+  (cloud_cover_overcast_snowy/cloud_cover_overcast * math.log2(cloud_cover_overcast_snowy/cloud_cover_overcast))),
+  
+  -cloud_cover_cloudy / jumlah_keseluruhan * (
+  (cloud_cover_cloudy_rainy/cloud_cover_cloudy * math.log2(cloud_cover_cloudy_rainy/cloud_cover_cloudy)) + 
+  (cloud_cover_cloudy_sunny/cloud_cover_cloudy * math.log2(cloud_cover_cloudy_sunny/cloud_cover_cloudy)) + 
+  (cloud_cover_cloudy_cloudy/cloud_cover_cloudy * math.log2(cloud_cover_cloudy_cloudy/cloud_cover_cloudy))+ 
+  (cloud_cover_cloudy_snowy/cloud_cover_cloudy * math.log2(cloud_cover_cloudy_snowy/cloud_cover_cloudy))),
+])
+
+print('Cloud Cover ', i_cloud_cover)
