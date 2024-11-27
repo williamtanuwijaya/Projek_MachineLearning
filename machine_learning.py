@@ -305,4 +305,69 @@ i_uv_index =  entropi -sum([
 
 print('UV INDEX ', i_uv_index)
 
-print(dataset['Visibility (km)'].unique())
+# print(dataset['Visibility (km)'].unique())
+
+visibility_light_fog = (dataset['Visibility (km)'] <= 1).sum()
+visibility_thin_fog = ((dataset['Visibility (km)'] > 1) & (dataset['Visibility (km)'] <= 2)).sum()
+visibility_haze = ((dataset['Visibility (km)'] > 2) & (dataset['Visibility (km)'] <= 4)).sum()
+visibility_light_haze = ((dataset['Visibility (km)'] > 4) & (dataset['Visibility (km)'] <= 10)).sum()
+visibility_clear = (dataset['Visibility (km)'] > 10).sum()
+
+visibility_light_fog_rainy = ((dataset['Visibility (km)'] <= 1) & (dataset['Weather Type'] == 'Rainy')).sum()
+visibility_light_fog_sunny = ((dataset['Visibility (km)'] <= 1) & (dataset['Weather Type'] == 'Sunny')).sum()
+visibility_light_fog_cloudy = ((dataset['Visibility (km)'] <= 1) & (dataset['Weather Type'] == 'Cloudy')).sum()
+visibility_light_fog_snowy = ((dataset['Visibility (km)'] <= 1) & (dataset['Weather Type'] == 'Snowy')).sum()
+
+visibility_thin_fog_rainy = ((dataset['Visibility (km)'] > 1) & (dataset['Visibility (km)'] <= 2) & (dataset['Weather Type'] == 'Rainy')).sum()
+visibility_thin_fog_sunny = ((dataset['Visibility (km)'] > 1) & (dataset['Visibility (km)'] <= 2) & (dataset['Weather Type'] == 'Sunny')).sum()
+visibility_thin_fog_cloudy = ((dataset['Visibility (km)'] > 1) & (dataset['Visibility (km)'] <= 2) & (dataset['Weather Type'] == 'Cloudy')).sum()
+visibility_thin_fog_snowy = ((dataset['Visibility (km)'] > 1) & (dataset['Visibility (km)'] <= 2) & (dataset['Weather Type'] == 'Snowy')).sum()
+
+visibility_haze_rainy = ((dataset['Visibility (km)'] > 2) & (dataset['Visibility (km)'] <= 4) & (dataset['Weather Type'] == 'Rainy')).sum()
+visibility_haze_sunny = ((dataset['Visibility (km)'] > 2) & (dataset['Visibility (km)'] <= 4) & (dataset['Weather Type'] == 'Sunny')).sum()
+visibility_haze_cloudy = ((dataset['Visibility (km)'] > 2) & (dataset['Visibility (km)'] <= 4) & (dataset['Weather Type'] == 'Cloudy')).sum()
+visibility_haze_snowy = ((dataset['Visibility (km)'] > 2) & (dataset['Visibility (km)'] <= 4) & (dataset['Weather Type'] == 'Snowy')).sum()
+
+visibility_light_haze_rainy = ((dataset['Visibility (km)'] > 4) & (dataset['Visibility (km)'] <= 10) & (dataset['Weather Type'] == 'Rainy')).sum()
+visibility_light_haze_sunny = ((dataset['Visibility (km)'] > 4) & (dataset['Visibility (km)'] <= 10) & (dataset['Weather Type'] == 'Sunny')).sum()
+visibility_light_haze_cloudy = ((dataset['Visibility (km)'] > 4) & (dataset['Visibility (km)'] <= 10) & (dataset['Weather Type'] == 'Cloudy')).sum()
+visibility_light_haze_snowy = ((dataset['Visibility (km)'] > 4) & (dataset['Visibility (km)'] <= 10) & (dataset['Weather Type'] == 'Snowy')).sum()
+
+visibility_clear_rainy = ((dataset['Visibility (km)'] > 10) & (dataset['Weather Type'] == 'Rainy')).sum()
+visibility_clear_sunny = ((dataset['Visibility (km)'] > 10) & (dataset['Weather Type'] == 'Sunny')).sum()
+visibility_clear_cloudy = ((dataset['Visibility (km)'] > 10) & (dataset['Weather Type'] == 'Cloudy')).sum()
+visibility_clear_snowy = ((dataset['Visibility (km)'] > 10) & (dataset['Weather Type'] == 'Snowy')).sum()
+
+i_visibility =  entropi -sum([
+  -visibility_light_fog / jumlah_keseluruhan * (
+  (visibility_light_fog_rainy/visibility_light_fog * math.log2(visibility_light_fog_rainy/visibility_light_fog)) + 
+  (visibility_light_fog_sunny/visibility_light_fog * math.log2(visibility_light_fog_sunny/visibility_light_fog)) + 
+  (visibility_light_fog_cloudy/visibility_light_fog * math.log2(visibility_light_fog_cloudy/visibility_light_fog))+ 
+  (visibility_light_fog_snowy/visibility_light_fog * math.log2(visibility_light_fog_snowy/visibility_light_fog))),
+  
+  -visibility_thin_fog / jumlah_keseluruhan * (
+  (visibility_thin_fog_rainy/visibility_thin_fog * math.log2(visibility_thin_fog_rainy/visibility_thin_fog)) + 
+  (visibility_thin_fog_sunny/visibility_thin_fog * math.log2(visibility_thin_fog_sunny/visibility_thin_fog))+
+  (visibility_thin_fog_cloudy/visibility_thin_fog * math.log2(visibility_thin_fog_cloudy/visibility_thin_fog))+ 
+  (visibility_thin_fog_snowy/visibility_thin_fog * math.log2(visibility_thin_fog_snowy/visibility_thin_fog))),
+  
+  -visibility_haze / jumlah_keseluruhan * (
+  (visibility_haze_rainy/visibility_haze * math.log2(visibility_haze_rainy/visibility_haze)) + 
+  (visibility_haze_sunny/visibility_haze * math.log2(visibility_haze_sunny/visibility_haze)) + 
+  (visibility_haze_cloudy/visibility_haze * math.log2(visibility_haze_cloudy/visibility_haze))+ 
+  (visibility_haze_snowy/visibility_haze * math.log2(visibility_haze_snowy/visibility_haze))),
+  
+  -visibility_light_haze / jumlah_keseluruhan * (
+  (visibility_light_haze_rainy/visibility_light_haze * math.log2(visibility_light_haze_rainy/visibility_light_haze)) + 
+  (visibility_light_haze_sunny/visibility_light_haze * math.log2(visibility_light_haze_sunny/visibility_light_haze)) + 
+  (visibility_light_haze_cloudy/visibility_light_haze * math.log2(visibility_light_haze_cloudy/visibility_light_haze))+ 
+  (visibility_light_haze_snowy/visibility_light_haze * math.log2(visibility_light_haze_snowy/visibility_light_haze))),
+  
+  -visibility_clear / jumlah_keseluruhan * (
+  (visibility_clear_rainy/visibility_clear * math.log2(visibility_clear_rainy/visibility_clear)) + 
+  (visibility_clear_sunny/visibility_clear * math.log2(visibility_clear_sunny/visibility_clear)) + 
+  (visibility_clear_cloudy/visibility_clear * math.log2(visibility_clear_cloudy/visibility_clear))+ 
+  (visibility_clear_snowy/visibility_clear * math.log2(visibility_clear_snowy/visibility_clear)))
+])
+
+print('Visibility ', i_visibility)
