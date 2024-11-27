@@ -1,7 +1,7 @@
 import pandas as pd # type: ignore
 import math
 
-dataset = pd.read_csv('cleaned_weather_data_zscore.csv')
+dataset = pd.read_csv('weather_classification_data_clear.csv')
 
 weather_type_rainy = (dataset['Weather Type'] == 'Rainy').sum()
 weather_type_sunny = (dataset['Weather Type'] == 'Sunny').sum()
@@ -17,7 +17,7 @@ entropi = -sum([
   (weather_type_snowy / jumlah_keseluruhan) * math.log2(weather_type_snowy / jumlah_keseluruhan),
 ])
 
-# print(entropi)
+# print('Entropi ', entropi)
 print((dataset['Temperature'] < 12).sum())
 
 sangat_dingin = (dataset['Temperature'] <= 12).sum()
