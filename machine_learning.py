@@ -371,3 +371,101 @@ i_visibility =  entropi -sum([
 ])
 
 print('Visibility ', i_visibility)
+
+print(dataset['Season'].unique())
+
+season_winter = (dataset['Season'] == 'Winter' ).sum()
+season_spring = (dataset['Season'] == 'Spring' ).sum()
+season_summer = (dataset['Season'] == 'Summer' ).sum()
+season_autumn = (dataset['Season'] == 'Autumn' ).sum()
+
+season_winter_rainy = ((dataset['Season'] == 'Winter' ) & (dataset['Weather Type'] == 'Rainy')).sum()
+season_winter_sunny = ((dataset['Season'] == 'Winter' ) & (dataset['Weather Type'] == 'Sunny')).sum()
+season_winter_cloudy= ((dataset['Season'] == 'Winter' ) & (dataset['Weather Type'] == 'Cloudy')).sum()
+season_winter_snowy = ((dataset['Season'] == 'Winter' ) & (dataset['Weather Type'] == 'Snowy')).sum()
+
+season_spring_rainy = ((dataset['Season'] == 'Spring' ) & (dataset['Weather Type'] == 'Rainy')).sum()
+season_spring_sunny = ((dataset['Season'] == 'Spring' ) & (dataset['Weather Type'] == 'Sunny')).sum()
+season_spring_cloudy= ((dataset['Season'] == 'Spring' ) & (dataset['Weather Type'] == 'Cloudy')).sum()
+season_spring_snowy = ((dataset['Season'] == 'Spring' ) & (dataset['Weather Type'] == 'Snowy')).sum()
+
+season_summer_rainy = ((dataset['Season'] == 'Summer' ) & (dataset['Weather Type'] == 'Rainy')).sum()
+season_summer_sunny = ((dataset['Season'] == 'Summer' ) & (dataset['Weather Type'] == 'Sunny')).sum()
+season_summer_cloudy= ((dataset['Season'] == 'Summer' ) & (dataset['Weather Type'] == 'Cloudy')).sum()
+season_summer_snowy = ((dataset['Season'] == 'Summer' ) & (dataset['Weather Type'] == 'Snowy')).sum()
+
+season_autumn_rainy = ((dataset['Season'] == 'Autumn' ) & (dataset['Weather Type'] == 'Rainy')).sum()
+season_autumn_sunny = ((dataset['Season'] == 'Autumn' ) & (dataset['Weather Type'] == 'Sunny')).sum()
+season_autumn_cloudy= ((dataset['Season'] == 'Autumn' ) & (dataset['Weather Type'] == 'Cloudy')).sum()
+season_autumn_snowy = ((dataset['Season'] == 'Autumn' ) & (dataset['Weather Type'] == 'Snowy')).sum()
+
+i_season =  entropi -sum([
+  -season_winter / jumlah_keseluruhan * (
+  (season_winter_rainy/season_winter * math.log2(season_winter_rainy/season_winter)) + 
+  (season_winter_sunny/season_winter * math.log2(season_winter_sunny/season_winter)) + 
+  (season_winter_cloudy/season_winter * math.log2(season_winter_cloudy/season_winter))+ 
+  (season_winter_snowy/season_winter * math.log2(season_winter_snowy/season_winter))),
+  
+  -season_spring / jumlah_keseluruhan * (
+  (season_spring_rainy/season_spring * math.log2(season_spring_rainy/season_spring)) + 
+  (season_spring_sunny/season_spring * math.log2(season_spring_sunny/season_spring))+
+  (season_spring_cloudy/season_spring * math.log2(season_spring_cloudy/season_spring))+ 
+  (season_spring_snowy/season_spring * math.log2(season_spring_snowy/season_spring))),
+  
+  -season_summer / jumlah_keseluruhan * (
+  (season_summer_rainy/season_summer * math.log2(season_summer_rainy/season_summer)) + 
+  (season_summer_sunny/season_summer * math.log2(season_summer_sunny/season_summer)) + 
+  (season_summer_cloudy/season_summer * math.log2(season_summer_cloudy/season_summer))+ 
+  (season_summer_snowy/season_summer * math.log2(season_summer_snowy/season_summer))),
+  
+  -season_autumn / jumlah_keseluruhan * (
+  (season_autumn_rainy/season_autumn * math.log2(season_autumn_rainy/season_autumn)) + 
+  (season_autumn_sunny/season_autumn * math.log2(season_autumn_sunny/season_autumn)) + 
+  (season_autumn_cloudy/season_autumn * math.log2(season_autumn_cloudy/season_autumn))+ 
+  (season_autumn_snowy/season_autumn * math.log2(season_autumn_snowy/season_autumn)))
+])
+
+print('Season ', i_season)
+
+print(dataset['Location'].unique())
+
+location_inland = (dataset['Location'] == 'inland' ).sum()
+location_mountain = (dataset['Location'] == 'mountain' ).sum()
+location_coastal = (dataset['Location'] == 'coastal' ).sum()
+
+location_inland_rainy = ((dataset['Location'] == 'inland' ) & (dataset['Weather Type'] == 'Rainy')).sum()
+location_inland_sunny = ((dataset['Location'] == 'inland' ) & (dataset['Weather Type'] == 'Sunny')).sum()
+location_inland_cloudy = ((dataset['Location'] == 'inland' ) & (dataset['Weather Type'] == 'Cloudy')).sum()
+location_inland_snowy = ((dataset['Location'] == 'inland' ) & (dataset['Weather Type'] == 'Snowy')).sum()
+
+location_mountain_rainy = ((dataset['Location'] == 'mountain' ) & (dataset['Weather Type'] == 'Rainy')).sum()
+location_mountain_sunny = ((dataset['Location'] == 'mountain' ) & (dataset['Weather Type'] == 'Sunny')).sum()
+location_mountain_cloudy = ((dataset['Location'] == 'mountain' ) & (dataset['Weather Type'] == 'Cloudy')).sum()
+location_mountain_snowy = ((dataset['Location'] == 'mountain' ) & (dataset['Weather Type'] == 'Snowy')).sum()
+
+location_coastal_rainy = ((dataset['Location'] == 'coastal' ) & (dataset['Weather Type'] == 'Rainy')).sum()
+location_coastal_sunny = ((dataset['Location'] == 'coastal' ) & (dataset['Weather Type'] == 'Sunny')).sum()
+location_coastal_cloudy = ((dataset['Location'] == 'coastal' ) & (dataset['Weather Type'] == 'Cloudy')).sum()
+location_coastal_snowy = ((dataset['Location'] == 'coastal' ) & (dataset['Weather Type'] == 'Snowy')).sum()
+
+i_location =  entropi -sum([
+  -location_inland / jumlah_keseluruhan * (
+  (location_inland_rainy/location_inland * math.log2(location_inland_rainy/location_inland)) + 
+  (location_inland_sunny/location_inland * math.log2(location_inland_sunny/location_inland)) + 
+  (location_inland_cloudy/location_inland * math.log2(location_inland_cloudy/location_inland))+ 
+  (location_inland_snowy/location_inland * math.log2(location_inland_snowy/location_inland))),
+  
+  -location_mountain / jumlah_keseluruhan * (
+  (location_mountain_rainy/location_mountain * math.log2(location_mountain_rainy/location_mountain)) + 
+  (location_mountain_sunny/location_mountain * math.log2(location_mountain_sunny/location_mountain))+
+  (location_mountain_cloudy/location_mountain * math.log2(location_mountain_cloudy/location_mountain))+ 
+  (location_mountain_snowy/location_mountain * math.log2(location_mountain_snowy/location_mountain))),
+  
+  -location_coastal / jumlah_keseluruhan * (
+  (location_coastal_rainy/location_coastal * math.log2(location_coastal_rainy/location_coastal)) + 
+  (location_coastal_sunny/location_coastal * math.log2(location_coastal_sunny/location_coastal)) + 
+  (location_coastal_cloudy/location_coastal * math.log2(location_coastal_cloudy/location_coastal))+ 
+  (location_coastal_snowy/location_coastal * math.log2(location_coastal_snowy/location_coastal)))
+])
+
+print('Location ', i_location)
