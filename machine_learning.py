@@ -182,8 +182,8 @@ i_windspeed = entropi -sum([
 ])
 
 print('Wind speed ',i_windspeed)
-print('Cloud Cover')
-print(dataset['Cloud Cover'].unique())
+# print('Cloud Cover')
+# print(dataset['Cloud Cover'].unique())
 
 cloud_cover_party_cloudy = (dataset['Cloud Cover'] == 'partly cloudy' ).sum()
 cloud_cover_clear = (dataset['Cloud Cover'] == 'clear' ).sum()
@@ -193,23 +193,23 @@ cloud_cover_cloudy = (dataset['Cloud Cover'] == 'cloudy' ).sum()
 cloud_cover_party_cloudy_rainy = ((dataset['Cloud Cover'] == 'partly cloudy' ) & (dataset['Weather Type'] == 'Rainy')).sum()
 cloud_cover_party_cloudy_sunny = ((dataset['Cloud Cover'] == 'partly cloudy' ) & (dataset['Weather Type'] == 'Sunny')).sum()
 cloud_cover_party_cloudy_cloudy = ((dataset['Cloud Cover'] == 'partly cloudy') & (dataset['Weather Type'] == 'Cloudy')).sum()
-cloud_cover_party_cloudy_snowy = ((dataset['Cloud Cover'] == 'partly cloudy' ) & (dataset['Weather Type'] == 'Rainy')).sum()
+cloud_cover_party_cloudy_snowy = ((dataset['Cloud Cover'] == 'partly cloudy' ) & (dataset['Weather Type'] == 'Snowy')).sum()
 
 # cloud_cover_clear_rainy = ((dataset['Cloud Cover'] == 'clear' ) & (dataset['Weather Type'] == 'Rainy')).sum()
 # print('rainy ', cloud_cover_clear_rainy)
 cloud_cover_clear_sunny = ((dataset['Cloud Cover'] == 'clear' ) & (dataset['Weather Type'] == 'Sunny')).sum()
 # cloud_cover_clear_cloudy = ((dataset['Cloud Cover'] == 'clear') & (dataset['Weather Type'] == 'Cloudy')).sum()
-# cloud_cover_clear_snowy = ((dataset['Cloud Cover'] == 'clear' ) & (dataset['Weather Type'] == 'Rainy')).sum()
+# cloud_cover_clear_snowy = ((dataset['Cloud Cover'] == 'clear' ) & (dataset['Weather Type'] == 'Snowy')).sum()
 
 cloud_cover_overcast_rainy = ((dataset['Cloud Cover'] == 'overcast' ) & (dataset['Weather Type'] == 'Rainy')).sum()
 cloud_cover_overcast_sunny = ((dataset['Cloud Cover'] == 'overcast' ) & (dataset['Weather Type'] == 'Sunny')).sum()
 cloud_cover_overcast_cloudy = ((dataset['Cloud Cover'] == 'overcast') & (dataset['Weather Type'] == 'Cloudy')).sum()
-cloud_cover_overcast_snowy = ((dataset['Cloud Cover'] == 'overcast' ) & (dataset['Weather Type'] == 'Rainy')).sum()
+cloud_cover_overcast_snowy = ((dataset['Cloud Cover'] == 'overcast' ) & (dataset['Weather Type'] == 'Snowy')).sum()
 
 cloud_cover_cloudy_rainy = ((dataset['Cloud Cover'] == 'cloudy' ) & (dataset['Weather Type'] == 'Rainy')).sum()
 cloud_cover_cloudy_sunny = ((dataset['Cloud Cover'] == 'cloudy' ) & (dataset['Weather Type'] == 'Sunny')).sum()
 cloud_cover_cloudy_cloudy = ((dataset['Cloud Cover'] == 'cloudy') & (dataset['Weather Type'] == 'Cloudy')).sum()
-cloud_cover_cloudy_snowy = ((dataset['Cloud Cover'] == 'cloudy' ) & (dataset['Weather Type'] == 'Rainy')).sum()
+cloud_cover_cloudy_snowy = ((dataset['Cloud Cover'] == 'cloudy' ) & (dataset['Weather Type'] == 'Snowy')).sum()
 
 i_cloud_cover =  entropi -sum([
   -cloud_cover_party_cloudy / jumlah_keseluruhan * (
@@ -235,7 +235,72 @@ i_cloud_cover =  entropi -sum([
   (cloud_cover_cloudy_rainy/cloud_cover_cloudy * math.log2(cloud_cover_cloudy_rainy/cloud_cover_cloudy)) + 
   (cloud_cover_cloudy_sunny/cloud_cover_cloudy * math.log2(cloud_cover_cloudy_sunny/cloud_cover_cloudy)) + 
   (cloud_cover_cloudy_cloudy/cloud_cover_cloudy * math.log2(cloud_cover_cloudy_cloudy/cloud_cover_cloudy))+ 
-  (cloud_cover_cloudy_snowy/cloud_cover_cloudy * math.log2(cloud_cover_cloudy_snowy/cloud_cover_cloudy))),
+  (cloud_cover_cloudy_snowy/cloud_cover_cloudy * math.log2(cloud_cover_cloudy_snowy/cloud_cover_cloudy)))
 ])
 
 print('Cloud Cover ', i_cloud_cover)
+
+uv_index_low = (dataset['UV Index'] <= 2).sum()
+uv_index_moderate = ((dataset['UV Index'] >= 3) & (dataset['UV Index'] <= 5)).sum()
+uv_index_high = ((dataset['UV Index'] >= 6) & (dataset['UV Index'] <= 7)).sum()
+uv_index_very_high = ((dataset['UV Index'] >= 8) & (dataset['UV Index'] <= 10)).sum()
+uv_index_extreme = ((dataset['UV Index'] >= 11)).sum()
+
+uv_index_low_rainy = ((dataset['UV Index'] <= 2) & (dataset['Weather Type'] == 'Rainy')).sum()
+uv_index_low_sunny = ((dataset['UV Index'] <= 2) & (dataset['Weather Type'] == 'Sunny')).sum()
+uv_index_low_cloudy = ((dataset['UV Index'] <= 2) & (dataset['Weather Type'] == 'Cloudy')).sum()
+uv_index_low_snowy = ((dataset['UV Index'] <= 2) & (dataset['Weather Type'] == 'Snowy')).sum()
+
+uv_index_moderate_rainy = ((dataset['UV Index'] >= 3) & (dataset['UV Index'] <= 5) & (dataset['Weather Type'] == 'Rainy')).sum()
+uv_index_moderate_sunny = ((dataset['UV Index'] >= 3) & (dataset['UV Index'] <= 5) & (dataset['Weather Type'] == 'Sunny')).sum()
+uv_index_moderate_cloudy = ((dataset['UV Index'] >= 3) & (dataset['UV Index'] <= 5) & (dataset['Weather Type'] == 'Cloudy')).sum()
+uv_index_moderate_snowy = ((dataset['UV Index'] >= 3) & (dataset['UV Index'] <= 5) & (dataset['Weather Type'] == 'Snowy')).sum()
+
+uv_index_high_rainy = ((dataset['UV Index'] >= 6) & (dataset['UV Index'] <= 7) & (dataset['Weather Type'] == 'Rainy')).sum()
+uv_index_high_sunny = ((dataset['UV Index'] >= 6) & (dataset['UV Index'] <= 7) & (dataset['Weather Type'] == 'Sunny')).sum()
+uv_index_high_cloudy = ((dataset['UV Index'] >= 6) & (dataset['UV Index'] <= 7) & (dataset['Weather Type'] == 'Cloudy')).sum()
+uv_index_high_snowy = ((dataset['UV Index'] >= 6) & (dataset['UV Index'] <= 7) & (dataset['Weather Type'] == 'Snowy')).sum()
+
+uv_index_very_high_rainy = ((dataset['UV Index'] >= 8) & (dataset['UV Index'] <= 10) & (dataset['Weather Type'] == 'Rainy')).sum()
+uv_index_very_high_sunny = ((dataset['UV Index'] >= 8) & (dataset['UV Index'] <= 10) & (dataset['Weather Type'] == 'Sunny')).sum()
+uv_index_very_high_cloudy = ((dataset['UV Index'] >= 8) & (dataset['UV Index'] <= 10) & (dataset['Weather Type'] == 'Cloudy')).sum()
+uv_index_very_high_snowy = ((dataset['UV Index'] >= 8) & (dataset['UV Index'] <= 10) & (dataset['Weather Type'] == 'Snowy')).sum()
+
+uv_index_extreme_rainy = ((dataset['UV Index'] >= 11) & (dataset['Weather Type'] == 'Rainy')).sum()
+uv_index_extreme_sunny = ((dataset['UV Index'] >= 11) & (dataset['Weather Type'] == 'Sunny')).sum()
+uv_index_extreme_cloudy = ((dataset['UV Index'] >= 11) & (dataset['Weather Type'] == 'Cloudy')).sum()
+uv_index_extreme_snowy = ((dataset['UV Index'] >= 11) & (dataset['Weather Type'] == 'Snowy')).sum()
+
+i_uv_index =  entropi -sum([
+  -uv_index_low / jumlah_keseluruhan * (
+  (uv_index_low_rainy/uv_index_low * math.log2(uv_index_low_rainy/uv_index_low)) + 
+  (uv_index_low_sunny/uv_index_low * math.log2(uv_index_low_sunny/uv_index_low)) + 
+  (uv_index_low_cloudy/uv_index_low * math.log2(uv_index_low_cloudy/uv_index_low))+ 
+  (uv_index_low_snowy/uv_index_low * math.log2(uv_index_low_snowy/uv_index_low))),
+  
+  -uv_index_moderate / jumlah_keseluruhan * (
+  (uv_index_moderate_rainy/uv_index_moderate * math.log2(uv_index_moderate_rainy/uv_index_moderate)) + 
+  (uv_index_moderate_sunny/uv_index_moderate * math.log2(uv_index_moderate_sunny/uv_index_moderate))+
+  (uv_index_moderate_cloudy/uv_index_moderate * math.log2(uv_index_moderate_cloudy/uv_index_moderate))+ 
+  (uv_index_moderate_snowy/uv_index_moderate * math.log2(uv_index_moderate_snowy/uv_index_moderate))),
+  
+  -uv_index_high / jumlah_keseluruhan * (
+  (uv_index_high_rainy/uv_index_high * math.log2(uv_index_high_rainy/uv_index_high)) + 
+  (uv_index_high_sunny/uv_index_high * math.log2(uv_index_high_sunny/uv_index_high)) + 
+  (uv_index_high_cloudy/uv_index_high * math.log2(uv_index_high_cloudy/uv_index_high))+ 
+  (uv_index_high_snowy/uv_index_high * math.log2(uv_index_high_snowy/uv_index_high))),
+  
+  -uv_index_very_high / jumlah_keseluruhan * (
+  (uv_index_very_high_rainy/uv_index_very_high * math.log2(uv_index_very_high_rainy/uv_index_very_high)) + 
+  (uv_index_very_high_sunny/uv_index_very_high * math.log2(uv_index_very_high_sunny/uv_index_very_high)) + 
+  (uv_index_very_high_cloudy/uv_index_very_high * math.log2(uv_index_very_high_cloudy/uv_index_very_high))+ 
+  (uv_index_very_high_snowy/uv_index_very_high * math.log2(uv_index_very_high_snowy/uv_index_very_high))),
+  
+  -uv_index_extreme / jumlah_keseluruhan * (
+  (uv_index_extreme_rainy/uv_index_extreme * math.log2(uv_index_extreme_rainy/uv_index_extreme)) + 
+  (uv_index_extreme_sunny/uv_index_extreme * math.log2(uv_index_extreme_sunny/uv_index_extreme)) + 
+  (uv_index_extreme_cloudy/uv_index_extreme * math.log2(uv_index_extreme_cloudy/uv_index_extreme))+ 
+  (uv_index_extreme_snowy/uv_index_extreme * math.log2(uv_index_extreme_snowy/uv_index_extreme)))
+])
+
+print('UV INDEX ', i_uv_index)
