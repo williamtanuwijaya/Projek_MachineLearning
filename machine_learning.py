@@ -547,3 +547,69 @@ i_precipitation =  entropi -sum([
 ])
 
 print('Precipitation ', i_precipitation)
+
+# atmospheric_pressure_sangat_rendah = (dataset['Atmospheric Pressure'] <= 870).sum()
+atmospheric_pressure_rendah = ((dataset['Atmospheric Pressure'] > 870) & (dataset['Atmospheric Pressure'] <= 980)).sum()
+atmospheric_pressure_normal = ((dataset['Atmospheric Pressure'] > 980) & (dataset['Atmospheric Pressure'] <= 1013)).sum()
+atmospheric_pressure_tinggi = ((dataset['Atmospheric Pressure'] > 1013) & (dataset['Atmospheric Pressure'] <= 1050)).sum()
+atmospheric_pressure_sangat_tinggi = ((dataset['Atmospheric Pressure'] > 1050)).sum()
+
+# atmospheric_pressure_sangat_rendah_rainy = (dataset['Atmospheric Pressure'] <= 870 & (dataset['Weather Type'] == 'Rainy')).sum()
+# atmospheric_pressure_sangat_rendah_sunny = (dataset['Atmospheric Pressure'] <= 870 & (dataset['Weather Type'] == 'Sunny')).sum()
+# atmospheric_pressure_sangat_rendah_cloudy = (dataset['Atmospheric Pressure'] <= 870 & (dataset['Weather Type'] == 'Cloudy')).sum()
+# atmospheric_pressure_sangat_rendah_snowy = (dataset['Atmospheric Pressure'] <= 870 & (dataset['Weather Type'] == 'Snowy')).sum()
+
+atmospheric_pressure_rendah_rainy = ((dataset['Atmospheric Pressure'] > 870) & (dataset['Atmospheric Pressure'] <= 980) & (dataset['Weather Type'] == 'Rainy')).sum()
+atmospheric_pressure_rendah_sunny = ((dataset['Atmospheric Pressure'] > 870) & (dataset['Atmospheric Pressure'] <= 980) & (dataset['Weather Type'] == 'Sunny')).sum()
+atmospheric_pressure_rendah_cloudy = ((dataset['Atmospheric Pressure'] > 870) & (dataset['Atmospheric Pressure'] <= 980) & (dataset['Weather Type'] == 'Cloudy')).sum()
+atmospheric_pressure_rendah_snowy = ((dataset['Atmospheric Pressure'] > 870) & (dataset['Atmospheric Pressure'] <= 980) & (dataset['Weather Type'] == 'Snowy')).sum()
+
+atmospheric_pressure_normal_rainy = ((dataset['Atmospheric Pressure'] > 980) & (dataset['Atmospheric Pressure'] <= 1013) & (dataset['Weather Type'] == 'Rainy')).sum()
+atmospheric_pressure_normal_sunny = ((dataset['Atmospheric Pressure'] > 980) & (dataset['Atmospheric Pressure'] <= 1013) & (dataset['Weather Type'] == 'Sunny')).sum()
+atmospheric_pressure_normal_cloudy = ((dataset['Atmospheric Pressure'] > 980) & (dataset['Atmospheric Pressure'] <= 1013) & (dataset['Weather Type'] == 'Cloudy')).sum()
+atmospheric_pressure_normal_snowy = ((dataset['Atmospheric Pressure'] > 980) & (dataset['Atmospheric Pressure'] <= 1013) & (dataset['Weather Type'] == 'Snowy')).sum()
+
+atmospheric_pressure_tinggi_rainy = ((dataset['Atmospheric Pressure'] > 1013) & (dataset['Atmospheric Pressure'] <= 1050) & (dataset['Weather Type'] == 'Rainy')).sum()
+atmospheric_pressure_tinggi_sunny = ((dataset['Atmospheric Pressure'] > 1013) & (dataset['Atmospheric Pressure'] <= 1050) & (dataset['Weather Type'] == 'Sunny')).sum()
+atmospheric_pressure_tinggi_cloudy = ((dataset['Atmospheric Pressure'] > 1013) & (dataset['Atmospheric Pressure'] <= 1050) & (dataset['Weather Type'] == 'Cloudy')).sum()
+atmospheric_pressure_tinggi_snowy = ((dataset['Atmospheric Pressure'] > 1013) & (dataset['Atmospheric Pressure'] <= 1050) & (dataset['Weather Type'] == 'Snowy')).sum()
+
+atmospheric_pressure_sangat_tinggi_rainy = ((dataset['Atmospheric Pressure'] > 1050) & (dataset['Weather Type'] == 'Rainy')).sum()
+atmospheric_pressure_sangat_tinggi_sunny = ((dataset['Atmospheric Pressure'] > 1050) & (dataset['Weather Type'] == 'Sunny')).sum()
+atmospheric_pressure_sangat_tinggi_cloudy = ((dataset['Atmospheric Pressure'] > 1050) & (dataset['Weather Type'] == 'Cloudy')).sum()
+atmospheric_pressure_sangat_tinggi_snowy = ((dataset['Atmospheric Pressure'] > 1050) & (dataset['Weather Type'] == 'Snowy')).sum()
+
+i_atmospheric_pressure =  entropi -sum([
+  # -atmospheric_pressure_sangat_rendah / jumlah_keseluruhan * (
+  # # (atmospheric_pressure_sangat_rendah_rainy/atmospheric_pressure_sangat_rendah * math.log2(atmospheric_pressure_sangat_rendah_rainy/atmospheric_pressure_sangat_rendah)) + 
+  # # (atmospheric_pressure_sangat_rendah_sunny/atmospheric_pressure_sangat_rendah * math.log2(atmospheric_pressure_sangat_rendah_sunny/atmospheric_pressure_sangat_rendah)) 
+  # # (atmospheric_pressure_sangat_rendah_cloudy/atmospheric_pressure_sangat_rendah * math.log2(atmospheric_pressure_sangat_rendah_cloudy/atmospheric_pressure_sangat_rendah))+ 
+  # # (atmospheric_pressure_sangat_rendah_snowy/atmospheric_pressure_sangat_rendah * math.log2(atmospheric_pressure_sangat_rendah_snowy/atmospheric_pressure_sangat_rendah))
+  # ),
+  
+  -atmospheric_pressure_rendah / jumlah_keseluruhan * (
+  (atmospheric_pressure_rendah_rainy/atmospheric_pressure_rendah * math.log2(atmospheric_pressure_rendah_rainy/atmospheric_pressure_rendah)) + 
+  (atmospheric_pressure_rendah_sunny/atmospheric_pressure_rendah * math.log2(atmospheric_pressure_rendah_sunny/atmospheric_pressure_rendah))+
+  (atmospheric_pressure_rendah_cloudy/atmospheric_pressure_rendah * math.log2(atmospheric_pressure_rendah_cloudy/atmospheric_pressure_rendah))+ 
+  (atmospheric_pressure_rendah_snowy/atmospheric_pressure_rendah * math.log2(atmospheric_pressure_rendah_snowy/atmospheric_pressure_rendah))),
+  
+  -atmospheric_pressure_normal / jumlah_keseluruhan * (
+  (atmospheric_pressure_normal_rainy/atmospheric_pressure_normal * math.log2(atmospheric_pressure_normal_rainy/atmospheric_pressure_normal)) + 
+  (atmospheric_pressure_normal_sunny/atmospheric_pressure_normal * math.log2(atmospheric_pressure_normal_sunny/atmospheric_pressure_normal)) + 
+  (atmospheric_pressure_normal_cloudy/atmospheric_pressure_normal * math.log2(atmospheric_pressure_normal_cloudy/atmospheric_pressure_normal))+ 
+  (atmospheric_pressure_normal_snowy/atmospheric_pressure_normal * math.log2(atmospheric_pressure_normal_snowy/atmospheric_pressure_normal))),
+  
+  -atmospheric_pressure_tinggi / jumlah_keseluruhan * (
+  (atmospheric_pressure_tinggi_rainy/atmospheric_pressure_tinggi * math.log2(atmospheric_pressure_tinggi_rainy/atmospheric_pressure_tinggi)) + 
+  (atmospheric_pressure_tinggi_sunny/atmospheric_pressure_tinggi * math.log2(atmospheric_pressure_tinggi_sunny/atmospheric_pressure_tinggi)) + 
+  (atmospheric_pressure_tinggi_cloudy/atmospheric_pressure_tinggi * math.log2(atmospheric_pressure_tinggi_cloudy/atmospheric_pressure_tinggi))+ 
+  (atmospheric_pressure_tinggi_snowy/atmospheric_pressure_tinggi * math.log2(atmospheric_pressure_tinggi_snowy/atmospheric_pressure_tinggi))),
+  
+  -atmospheric_pressure_sangat_tinggi / jumlah_keseluruhan * (
+  (atmospheric_pressure_sangat_tinggi_rainy/atmospheric_pressure_sangat_tinggi * math.log2(atmospheric_pressure_sangat_tinggi_rainy/atmospheric_pressure_sangat_tinggi)) + 
+  (atmospheric_pressure_sangat_tinggi_sunny/atmospheric_pressure_sangat_tinggi * math.log2(atmospheric_pressure_sangat_tinggi_sunny/atmospheric_pressure_sangat_tinggi)) + 
+  (atmospheric_pressure_sangat_tinggi_cloudy/atmospheric_pressure_sangat_tinggi * math.log2(atmospheric_pressure_sangat_tinggi_cloudy/atmospheric_pressure_sangat_tinggi))+ 
+  (atmospheric_pressure_sangat_tinggi_snowy/atmospheric_pressure_sangat_tinggi * math.log2(atmospheric_pressure_sangat_tinggi_snowy/atmospheric_pressure_sangat_tinggi)))
+])
+
+print('Atmosfer ', i_atmospheric_pressure)
