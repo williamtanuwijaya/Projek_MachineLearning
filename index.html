@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Weather Prediction</title>
+</head>
+<body>
+    <h1>Weather Prediction Using KNN</h1>
+
+    <form id="weatherForm">
+        <label for="temperature">Temperature: </label>
+        <input type="number" id="temperature" required><br>
+
+        <label for="humidity">Humidity: </label>
+        <input type="number" id="humidity" required><br>
+
+        <label for="windSpeed">Wind Speed: </label>
+        <input type="number" id="windSpeed" required><br>
+
+        <label for="precipitation">Precipitation: </label>
+        <input type="number" id="precipitation" required><br>
+
+        <label for="cloudCover">Cloud Cover: </label>
+        <input type="number" id="cloudCover" required><br>
+
+        <button type="submit">Predict</button>
+    </form>
+
+    <h2>Prediction Result: <span id="predictionResult">-</span></h2>
+
+    <script>
+        document.getElementById("weatherForm").addEventListener("submit", function(event) {
+            event.preventDefault();
+
+            const features = {
+                temperature: parseFloat(document.getElementById('temperature').value),
+                humidity: parseFloat(document.getElementById('humidity').value),
+                windSpeed: parseFloat(document.getElementById('windSpeed').value),
+                precipitation: parseFloat(document.getElementById('precipitation').value),
+                cloudCover: parseFloat(document.getElementById('cloudCover').value)
+            };
+
+            // Mengirim data ke server menggunakan fetch API
+            fetch('http://127.0.0.1:5000/predict', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ features: Object.values(features) })
+            })
+            .then(response => response.json())
+            .then(data => {
+                document.getElementById('predictionResult').textContent = data.prediction;
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                document.getElementById('predictionResult').textContent = 'Error!';
+            });
+        });
+    </script>
+</body>
+</html>

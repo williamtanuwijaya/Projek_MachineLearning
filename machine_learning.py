@@ -85,8 +85,8 @@ i_temperature = entropi - sum([
   (panas_snowy/panas * math.log2(panas_snowy/panas)))
 ])
 
-# print(i_temperature)
-print(dataset.describe())
+print('Temperature ',i_temperature)
+
 
 kelembapan_normal = (dataset['Humidity'] <= 60).sum()
 kelembapan_lembab = (dataset['Humidity'] > 60).sum()
@@ -613,3 +613,22 @@ i_atmospheric_pressure =  entropi -sum([
 ])
 
 print('Atmosfer ', i_atmospheric_pressure)
+
+data = [i_temperature, i_visibility, i_uv_index, i_cloud_cover, i_atmospheric_pressure, i_precipitation, i_windspeed, i_humidity, i_season, i_location]
+max_value = max(data)
+print('Nilai terbesar ', max_value)
+
+weather_type_rainy = ((dataset['Weather Type'] == 'Rainy') ).sum()
+weather_type_sunny = ((dataset['Weather Type'] == 'Sunny')).sum()
+weather_type_cloudy = ((dataset['Weather Type'] == 'Cloudy')).sum()
+weather_type_snowy = ((dataset['Weather Type'] == 'Snowy')).sum()
+
+precipitation_berawan = ((dataset['Precipitation (%)'] <= 5) & (dataset['Weather Type'] == 'Rainy')).sum()
+precipitation_hujan_ringan = ((dataset['Precipitation (%)'] > 5) & (dataset['Precipitation (%)'] <= 20)).sum()
+precipitation_hujan_sedang = ((dataset['Precipitation (%)'] > 20) & (dataset['Precipitation (%)'] <= 40)).sum()
+precipitation_hujan_lebat = ((dataset['Precipitation (%)'] > 40) & (dataset['Precipitation (%)'] <= 60)).sum()
+precipitation_hujan_sangat_lebat = ((dataset['Precipitation (%)'] > 60) & (dataset['Precipitation (%)'] <= 90)).sum()
+precipitation_hujan_ekstrem = ((dataset['Precipitation (%)'] > 90)).sum()
+
+# print(dataset.describe())
+print(dataset)
