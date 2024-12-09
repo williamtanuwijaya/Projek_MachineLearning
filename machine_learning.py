@@ -630,5 +630,5 @@ precipitation_hujan_lebat = ((dataset['Precipitation (%)'] > 40) & (dataset['Pre
 precipitation_hujan_sangat_lebat = ((dataset['Precipitation (%)'] > 60) & (dataset['Precipitation (%)'] <= 90)).sum()
 precipitation_hujan_ekstrem = ((dataset['Precipitation (%)'] > 90)).sum()
 
-# print(dataset.describe())
-print(dataset)
+print(dataset.describe())
+# print(dataset)

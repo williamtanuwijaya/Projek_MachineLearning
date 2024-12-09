@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Weather Type Prediction</title>
+  <style>
+    /* style.css */
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f4f4f9;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      text-align: center;
+      animation: fadeIn 1.5s ease-out;
+    }
+
+    /* Animasi fadeIn untuk body */
+    @keyframes fadeIn {
+      0% {
+        opacity: 0;
+      }
+
+      100% {
+        opacity: 1;
+      }
+    }
+
+    h1 {
+      font-size: 2.5em;
+      color: #333;
+      margin-bottom: 20px;
+      animation: slideIn 1s ease-out;
+    }
+
+    /* Animasi slideIn untuk heading */
+    @keyframes slideIn {
+      0% {
+        transform: translateY(-50px);
+        opacity: 0;
+      }
+
+      100% {
+        transform: translateY(0);
+        opacity: 1;
+      }
+    }
+
+    form {
+      background-color: #ffffff;
+      padding: 30px;
+      border-radius: 8px;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      width: 80%;
+      max-width: 500px;
+      animation: fadeInUp 1s ease-out;
+    }
+
+    /* Animasi untuk form */
+    @keyframes fadeInUp {
+      0% {
+        transform: translateY(50px);
+        opacity: 0;
+      }
+
+      100% {
+        transform: translateY(0);
+        opacity: 1;
+      }
+    }
+
+    form label {
+      font-size: 1.1em;
+      margin-bottom: 5px;
+      display: block;
+    }
+
+    form input[type="range"] {
+      width: 100%;
+      margin: 10px 0;
+    }
+
+    form input[type="text"] {
+      width: 100%;
+      padding: 10px;
+      margin: 8px 0 15px 0;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      font-size: 1em;
+      transition: border-color 0.3s ease, transform 0.3s ease;
+    }
+
+    /* Efek saat input fokus */
+    form input[type="text"]:focus {
+      outline: none;
+      border-color: #5b9bd5;
+      transform: scale(1.02);
+    }
+
+    button {
+      padding: 10px 20px;
+      background-color: #4caf50;
+      color: white;
+      border: none;
+      border-radius: 4px;
+      font-size: 1.2em;
+      cursor: pointer;
+      transition: background-color 0.3s ease, transform 0.3s ease;
+    }
+
+    /* Efek animasi saat hover pada tombol */
+    button:hover {
+      background-color: #45a049;
+      transform: translateY(-3px);
+    }
+
+    button:active {
+      transform: translateY(1px);
+    }
+
+    h2 {
+      font-size: 1.5em;
+      margin-top: 20px;
+    }
+
+    h2.green {
+      color: green;
+      animation: fadeInText 1s ease-out;
+    }
+
+    h2.red {
+      color: red;
+      animation: fadeInText 1s ease-out;
+    }
+
+    /* Animasi untuk output h2 */
+    @keyframes fadeInText {
+      0% {
+        opacity: 0;
+      }
+
+      100% {
+        opacity: 1;
+      }
+    }
+
+    .slider-container {
+      margin-bottom: 20px;
+    }
+
+    .slider-label {
+      font-size: 1em;
+      margin: 10px 0;
+    }
+
+    select {
+      width: 100%;
+      padding: 10px;
+      margin: 8px 0 15px 0;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      font-size: 1em;
+    }
+  </style>
+</head>
+
+<body>
+  <h1>Weather Type Prediction</h1>
+
+  <form action="/predict" method="post">
+    <div class="slider-container">
+      <label class="slider-label" for="Temperature">Temperature (-24 to 100):</label>
+      <input type="range" name="Temperature" min="-24" max="100" step="0.1" value="0" id="Temperature">
+      <input type="text" id="TemperatureText" name="Temperature" value="0" readonly>
+    </div>
+
+    <div class="slider-container">
+      <label class="slider-label" for="Humidity">Humidity (20 to 100):</label>
+      <input type="range" name="Humidity" min="20" max="100" value="50" id="Humidity">
+      <input type="text" id="HumidityText" name="Humidity" value="50" readonly>
+    </div>
+
+    <div class="slider-container">
+      <label class="slider-label" for="Wind Speed">Wind Speed (0 to 48.5):</label>
+      <input type="range" name="Wind Speed" min="0" max="48.5" step="0.1" value="0" id="WindSpeed">
+      <input type="text" id="WindSpeedText" name="Wind Speed" value="0" readonly>
+    </div>
+
+    <div class="slider-container">
+      <label class="slider-label" for="UV Index">UV Index (0 to 14):</label>
+      <input type="range" name="UV Index" min="0" max="14" value="0" id="UVIndex">
+      <input type="text" id="UVIndexText" name="UV Index" value="0" readonly>
+    </div>
+
+    <div class="slider-container">
+      <label class="slider-label" for="Atmospheric Pressure">Atmospheric Pressure (800.12 to 1199.21):</label>
+      <input type="range" name="Atmospheric Pressure" min="800.12" max="1199.21" step="0.1" value="800.12"
+        id="AtmosphericPressure">
+      <input type="text" id="AtmosphericPressureText" name="Atmospheric Pressure" value="800.12" readonly>
+    </div>
+
+    <div class="slider-container">
+      <label class="slider-label" for="Precipitation">Precipitation (%) (0 to 100):</label>
+      <input type="range" name="Precipitation (%)" min="0" max="100" value="0" id="Precipitation">
+      <input type="text" id="PrecipitationText" name="Precipitation (%)" value="0" readonly>
+    </div>
+
+    <div class="slider-container">
+      <label class="slider-label" for="Visibility">Visibility (0 to 20 km):</label>
+      <input type="range" name="Visibility (km)" min="0" max="20" value="0" id="Visibility">
+      <input type="text" id="VisibilityText" name="Visibility (km)" value="0" readonly>
+    </div>
+
+    <label for="Location">Location:</label>
+    <select name="Location" required>
+      <option value="inland">Inland</option>
+      <option value="mountain">Mountain</option>
+      <option value="coastal">Coastal</option>
+    </select>
+
+    <label for="Season">Season:</label>
+    <select name="Season" required>
+      <option value="Winter">Winter</option>
+      <option value="Spring">Spring</option>
+      <option value="Summer">Summer</option>
+      <option value="Autumn">Autumn</option>
+    </select>
+
+    <label for="Cloud Cover">Cloud Cover:</label>
+    <select name="Cloud Cover" required>
+      <option value="partly cloudy">Partly Cloudy</option>
+      <option value="cloudy">Cloudy</option>
+      <option value="clear">Clear</option>
+      <option value="overcast">Overcast</option>
+    </select>
+
+    <button type="submit">Predict</button>
+  </form>
+
+  {% if result %}
+  <h2 class="green">{{ result }}</h2>
+  {% endif %}
+  {% if error %}
+  <h2 class="red">{{ error }}</h2>
+  {% endif %}
+
+  <script>
+    // Update text input when range slider value changes
+    document.getElementById("Temperature").oninput = function () {
+      document.getElementById("TemperatureText").value = this.value;
+    };
+    document.getElementById("Humidity").oninput = function () {
+      document.getElementById("HumidityText").value = this.value;
+    };
+    document.getElementById("WindSpeed").oninput = function () {
+      document.getElementById("WindSpeedText").value = this.value;
+    };
+    document.getElementById("UVIndex").oninput = function () {
+      document.getElementById("UVIndexText").value = this.value;
+    };
+    document.getElementById("AtmosphericPressure").oninput = function () {
+      document.getElementById("AtmosphericPressureText").value = this.value;
+    };
+    document.getElementById("Precipitation").oninput = function () {
+      document.getElementById("PrecipitationText").value = this.value;
+    };
+    document.getElementById("Visibility").oninput = function () {
+      document.getElementById("VisibilityText").value = this.value;
+    };
+  </script>
+
+</body>
+
+</html>
